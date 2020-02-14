@@ -62,6 +62,22 @@ bool passTightIsolation(vector<int> *lep_pdgId, vector<int> *lep_pass_VVV_fo, ve
    return false;
 }
 
+bool NBvetoSoft(vector<int> *svs_nTrks, vector<float> *svs_distXYval, vector<float> *svs_dist3Dsig, vector<float> *svs_anglePV)
+{
+   int nsoftbtag  = 0;
+   for (unsigned int i = 0; i<svs_nTrks->size(); ++i)
+   {
+      bool passID = true;
+      if (svs_nTrks->at(i) < 3)            passID = false;
+      if (svs_distXYval->at(i) >= 3.0)     passID = false;
+      if (svs_dist3Dsig->at(i) <= 4.0)     passID = false;
+      if (cos(svs_anglePV->at(i)) <= 0.98) passID = false;
+      if (passID) nsoftbtag++;
+    }
+    if(nsoftbtag > 0) return false;
+    return true;
+}
+
 int closestJet(const TLorentzVector& lep_p4, std::vector<TLorentzVector>& v_Jets, float dRmin, float maxAbsEta, TLorentzVector& jet_p4)
 {
   bool returnValue = -1;
@@ -332,6 +348,10 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
   vector<float>   *ak8jets_puppi_phi;
   vector<float>   *ak8jets_puppi_pt;
   vector<float>   *ak8jets_puppi_mass;
+  vector<int>     *svs_nTrks;
+  vector<float>   *svs_distXYval;
+  vector<float>   *svs_dist3Dsig;
+  vector<float>   *svs_anglePV;
 
   lep_pt = 0;
   lep_eta = 0; 
@@ -396,6 +416,11 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
   ak8jets_puppi_phi = 0;
   ak8jets_puppi_pt = 0;
   ak8jets_puppi_mass = 0;
+  svs_nTrks = 0;
+  svs_distXYval = 0;
+  svs_dist3Dsig = 0;
+  svs_anglePV = 0;
+
 
   tree->SetBranchAddress("run", &(run));
   tree->SetBranchAddress("lumi", &(lumi));
@@ -523,6 +548,11 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
   tree->SetBranchAddress("lep_pass_VVV_fo", &(lep_pass_VVV_fo));
   tree->SetBranchAddress("lep_pass_VVV_3l_fo", &(lep_pass_VVV_3l_fo)); 
   tree->SetBranchAddress("lep_relIso03EALep", &(lep_relIso03EALep));
+  tree->SetBranchAddress("svs_nTrks", &(svs_nTrks));
+  tree->SetBranchAddress("svs_distXYval", &(svs_distXYval));
+  tree->SetBranchAddress("svs_dist3Dsig", &(svs_dist3Dsig));
+  tree->SetBranchAddress("svs_anglePV", &(svs_anglePV));
+
 
   HistCollection mumuHistCut1;
   initializeHistCollection(mumuHistCut1, "2SSTL_MuMu");
@@ -610,7 +640,7 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
     }
     
     std::sort (v_selectedJets.begin(), v_selectedJets.end(), sortJetLorentzVectorsInDescendingpT);
-    //if(nj30!=(int)v_selectedJets.size()) std::cout << "size mismatch found" << std::endl;
+    if(nj30!=(int)v_selectedJets.size()) std::cout << "size mismatch found" << std::endl;
 
     //if(v_selectedJets.size()>=2 and v_selectedJets.at(1).Pt() > 30.0 and fabs(v_selectedJets.at(0).Eta()) < 2.5 and fabs(v_selectedJets.at(1).Eta()) < 2.5 and  sameVal(DetajjL, fabs(v_selectedJets.at(0).Eta() - v_selectedJets.at(1).Eta()))) std::cout << "size mismatch found" << std::endl;
 
@@ -641,7 +671,7 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
     //if(lep_pass_VVV_fo->size() > 0 and lep_pass_VVV_fo->at(0) > 0) std::cout << "lep_pass_VVV_fo = " << lep_pass_VVV_fo->at(0) << std::endl;
     //if(lep_pass_VVV_3l_fo->size() > 0 and lep_pass_VVV_3l_fo->at(0) > 0) std::cout << "lep_pass_VVV_3l_fo = " << lep_pass_VVV_3l_fo->at(0) << std::endl;
 
-    if(nVlep==2 and nLlep==2 and lep_pt->at(0) > 25.0 and lep_pt->at(1) > 25.0 and getRawMVA(fabs(lep_MVA->at(0))) > 7 and getRawMVA(fabs(lep_MVA->at(1))) > 7 and passTightIsolation(lep_pdgId, lep_pass_VVV_fo, lep_pass_VVV_3l_fo, lep_relIso03EALep, nVlep)==true) TwoLep++; 
+    if(nVlep==2 and nLlep==2 and lep_pt->at(0) > 25.0 and lep_pt->at(1) > 25.0 and getRawMVA(fabs(lep_MVA->at(0))) > 7 and getRawMVA(fabs(lep_MVA->at(1))) > 7 and passTightIsolation(lep_pdgId, lep_pass_VVV_fo, lep_pass_VVV_3l_fo, lep_relIso03EALep, nVlep)==true and nj30>=2 and nisoTrack_mt2_cleaned_VVV_cutbased_veto==0 and nb==0 and NBvetoSoft(svs_nTrks, svs_distXYval, svs_dist3Dsig, svs_anglePV)==0) TwoLep++; 
   
   }//event loop
 

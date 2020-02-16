@@ -6,6 +6,8 @@
 using std::string;
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > LorentzVector;
 
+float MZ = 91.1876;
+
 bool sameVal(double a, double b)
 {
    return fabs(a - b) < 1.000e-05;
@@ -352,6 +354,7 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
   vector<float>   *svs_distXYval;
   vector<float>   *svs_dist3Dsig;
   vector<float>   *svs_anglePV;
+  vector<LorentzVector> *lep_p4;
 
   lep_pt = 0;
   lep_eta = 0; 
@@ -420,7 +423,7 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
   svs_distXYval = 0;
   svs_dist3Dsig = 0;
   svs_anglePV = 0;
-
+  lep_p4 = 0;
 
   tree->SetBranchAddress("run", &(run));
   tree->SetBranchAddress("lumi", &(lumi));
@@ -552,7 +555,7 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
   tree->SetBranchAddress("svs_distXYval", &(svs_distXYval));
   tree->SetBranchAddress("svs_dist3Dsig", &(svs_dist3Dsig));
   tree->SetBranchAddress("svs_anglePV", &(svs_anglePV));
-
+  tree->SetBranchAddress("lep_p4", &(lep_p4));
 
   HistCollection mumuHistCut1;
   initializeHistCollection(mumuHistCut1, "2SSTL_MuMu");
@@ -616,8 +619,8 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
   int n_events_nSFOS1 = 0.0;
   int n_events_nSFOS2 = 0.0;
   //nEvents = 10;
-  int TwoLep, ThreeLep;
-  TwoLep=ThreeLep=0;
+  int TwoLep, ThreeLep, TwoLepEl, TwoLepElMu, TwoLepMuMu;
+  TwoLep=ThreeLep=TwoLepEl=TwoLepElMu=TwoLepMuMu=0;
   for (int i=0; i<nEvents; ++i)
   {
     tree->GetEvent(i);  
@@ -670,12 +673,18 @@ int ReadUCSDBabyTuples_3l(std::string infile, std::string treeStr, std::string S
 
     //if(lep_pass_VVV_fo->size() > 0 and lep_pass_VVV_fo->at(0) > 0) std::cout << "lep_pass_VVV_fo = " << lep_pass_VVV_fo->at(0) << std::endl;
     //if(lep_pass_VVV_3l_fo->size() > 0 and lep_pass_VVV_3l_fo->at(0) > 0) std::cout << "lep_pass_VVV_3l_fo = " << lep_pass_VVV_3l_fo->at(0) << std::endl;
-
-    if(nVlep==2 and nLlep==2 and lep_pt->at(0) > 25.0 and lep_pt->at(1) > 25.0 and getRawMVA(fabs(lep_MVA->at(0))) > 7 and getRawMVA(fabs(lep_MVA->at(1))) > 7 and passTightIsolation(lep_pdgId, lep_pass_VVV_fo, lep_pass_VVV_3l_fo, lep_relIso03EALep, nVlep)==true and nj30>=2 and nisoTrack_mt2_cleaned_VVV_cutbased_veto==0 and nb==0 and NBvetoSoft(svs_nTrks, svs_distXYval, svs_dist3Dsig, svs_anglePV)==0) TwoLep++; 
-  
+    if(nVlep==2 and nLlep==2 and lep_pt->at(0) > 25.0 and lep_pt->at(1) > 25.0 and getRawMVA(fabs(lep_MVA->at(0))) > 7 and getRawMVA(fabs(lep_MVA->at(1))) > 7 and passTightIsolation(lep_pdgId, lep_pass_VVV_fo, lep_pass_VVV_3l_fo, lep_relIso03EALep, nVlep)==true and nj30>=2 and nisoTrack_mt2_cleaned_VVV_cutbased_veto==0 and nb==0 and NBvetoSoft(svs_nTrks, svs_distXYval, svs_dist3Dsig, svs_anglePV)==true and (lep_p4->at(0)+lep_p4->at(1)).M() > 20.0 and met_pt > 45.0 and MjjL < 500.0 and fabs(DetajjL) < 2.5) 
+    { 
+      if(lep_pdgId->at(0)*lep_pdgId->at(1)==121)
+      {
+        if(fabs((lep_p4->at(0)+lep_p4->at(1)).M() - MZ) > 20.0 and MTmax > 90.0) TwoLepEl++;
+      }
+      else if(lep_pdgId->at(0)*lep_pdgId->at(1)==143 and MTmax > 90.0) TwoLepElMu++;
+      else if(lep_pdgId->at(0)*lep_pdgId->at(1)==169) TwoLepMuMu++;
+    } 
   }//event loop
 
-  std::cout << "2lep = " << TwoLep << std::endl;
+  std::cout << "2lep = " << TwoLepEl+TwoLepElMu+TwoLepMuMu << std::endl;
   std::cout << "3lep = " << ThreeLep << std::endl;
   std::string histfilename=("output_"+infile+".root").c_str();
   TFile *tFile=new TFile(histfilename.c_str(), "RECREATE");

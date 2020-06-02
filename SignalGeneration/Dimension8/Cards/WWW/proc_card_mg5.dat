@@ -16,4 +16,4 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate p p > l+ vl w+ w- NP=1
 add process p p > l- vl~ w- w+ NP=1
-output WZZ 
+output WWW 

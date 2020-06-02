@@ -1,3 +1,4 @@
+set default_unset_couplings 99
 set loop_color_flows False
 set gauge unitary
 set max_npoint_for_channel 0

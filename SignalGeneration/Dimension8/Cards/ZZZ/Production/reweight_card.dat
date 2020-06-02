@@ -1,0 +1,125 @@
+change mode NLO    # Define type of Reweighting. For LO sample this command
+                   # has no effect since only "LO" mode is allowed.
+
+change helicity False # has also been done in the example I got from Kenneth
+change rwgt_dir rwgt
+
+# [1/20] Standard Model
+launch --rwgt_name=EFT__EFT_SM
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [2/20] FT0 : -100
+launch --rwgt_name=EFT__FT0_m100
+set anoinputs 12 -100.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [3/20] FT0 : -50
+launch --rwgt_name=EFT__FT0_m50
+set anoinputs 12 -50.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [4/20] FT0 : -10
+launch --rwgt_name=EFT__FT0_m10
+set anoinputs 12 -10.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [5/20] FT0 : 10
+launch --rwgt_name=EFT__FT0_10
+set anoinputs 12 10.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [6/20] FT0 : 50
+launch --rwgt_name=EFT__FT0_50
+set anoinputs 12 50.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [7/20] FT0 : 100
+launch --rwgt_name=EFT__FT0_100
+set anoinputs 12 100.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [8/20] FT8 : -100
+launch --rwgt_name=EFT__FT8_m100
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 -100.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [9/20] FT8 : -50
+launch --rwgt_name=EFT__FT8_m50
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 -50.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [10/20] FT8 : -10
+launch --rwgt_name=EFT__FT8_m10
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 -10.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [11/20] FT8 : 10
+launch --rwgt_name=EFT__FT8_10
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 10.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [12/20] FT8 : 50
+launch --rwgt_name=EFT__FT8_50
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 50.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [13/20] FT8 : 100
+launch --rwgt_name=EFT__FT8_100
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 100.0e-12 # FT8
+set anoinputs 21 0.0e-12 # FT9
+
+# [14/20] FT9 : -100
+launch --rwgt_name=EFT__FT9_m100
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 -100.0e-12 # FT9
+
+# [15/20] FT9 : -50
+launch --rwgt_name=EFT__FT9_m50
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 -50.0e-12 # FT9
+
+# [16/20] FT9 : -10
+launch --rwgt_name=EFT__FT9_m10
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 -10.0e-12 # FT9
+
+# [17/20] FT9 : 10
+launch --rwgt_name=EFT__FT9_10
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 10.0e-12 # FT9
+
+# [18/20] FT9 : 50
+launch --rwgt_name=EFT__FT9_50
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 50.0e-12 # FT9
+
+# [19/20] FT9 : 100
+launch --rwgt_name=EFT__FT9_100
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 0.0e-12 # FT8
+set anoinputs 21 100.0e-12 # FT9
+
+# [20/20] FT8 : 50, FT9 : 50
+launch --rwgt_name=EFT__FT8_50__FT9_50
+set anoinputs 12 0.0e-12 # FT0
+set anoinputs 20 50.0e-12 # FT8
+set anoinputs 21 50.0e-12 # FT9

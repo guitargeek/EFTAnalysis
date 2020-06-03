@@ -4,49 +4,43 @@ change mode NLO    # Define type of Reweighting. For LO sample this command
 change helicity False # has also been done in the example I got from Kenneth
 change rwgt_dir rwgt
 
-# [1/8] Standard Model
-launch --rwgt_name=EFT__EFT_SM
+# [1/7] Standard Model
+launch --rwgt_name=EFT_SM
 set anoinputs 12 0.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
-# [2/8] FT0 : -10
+# [2/7] FT0 : -10
 launch --rwgt_name=EFT__FT0_m10
 set anoinputs 12 -10.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
-# [3/8] FT0 : -5
+# [3/7] FT0 : -5
 launch --rwgt_name=EFT__FT0_m5
 set anoinputs 12 -5.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
-# [4/8] FT0 : -1
+# [4/7] FT0 : -1
 launch --rwgt_name=EFT__FT0_m1
 set anoinputs 12 -1.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
-# [5/8] Standard Model
-launch --rwgt_name=EFT__EFT_SM
-set anoinputs 12 0.0e-12 # FT0
-set anoinputs 20 0.0e-12 # FT8
-set anoinputs 21 0.0e-12 # FT9
-
-# [6/8] FT0 : 1
+# [5/7] FT0 : 1
 launch --rwgt_name=EFT__FT0_1
 set anoinputs 12 1.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
-# [7/8] FT0 : 5
+# [5/7] FT0 : 5
 launch --rwgt_name=EFT__FT0_5
 set anoinputs 12 5.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
-# [8/8] FT0 : 10
+# [5/7] FT0 : 10
 launch --rwgt_name=EFT__FT0_10
 set anoinputs 12 10.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8

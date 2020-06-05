@@ -15,5 +15,5 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > l+ l- z z NP=1
+generate p p > z z z NP=1
 output ZZZ 

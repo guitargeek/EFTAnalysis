@@ -11,37 +11,37 @@ set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
 # [2/7] FT0 : -10
-launch --rwgt_name=EFT__FT0_m10
+launch --rwgt_name=EFT_FT0_m10
 set anoinputs 12 -10.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
 # [3/7] FT0 : -5
-launch --rwgt_name=EFT__FT0_m5
+launch --rwgt_name=EFT_FT0_m5
 set anoinputs 12 -5.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
 # [4/7] FT0 : -1
-launch --rwgt_name=EFT__FT0_m1
+launch --rwgt_name=EFT_FT0_m1
 set anoinputs 12 -1.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
 # [5/7] FT0 : 1
-launch --rwgt_name=EFT__FT0_1
+launch --rwgt_name=EFT_FT0_1
 set anoinputs 12 1.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
 # [5/7] FT0 : 5
-launch --rwgt_name=EFT__FT0_5
+launch --rwgt_name=EFT_FT0_5
 set anoinputs 12 5.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9
 
 # [5/7] FT0 : 10
-launch --rwgt_name=EFT__FT0_10
+launch --rwgt_name=EFT_FT0_10
 set anoinputs 12 10.0e-12 # FT0
 set anoinputs 20 0.0e-12 # FT8
 set anoinputs 21 0.0e-12 # FT9

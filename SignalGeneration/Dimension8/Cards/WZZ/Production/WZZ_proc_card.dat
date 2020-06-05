@@ -15,6 +15,6 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > w+ l+ l- z NP=1
-add process p p > w- l+ l- z NP=1
+generate p p > w+ z z NP=1
+add process p p > w- z z NP=1
 output WZZ 

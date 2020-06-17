@@ -117,6 +117,7 @@ CMSSW_VERSION=CMSSW_10_2_22
 ERA=Run2_${YEAR}
 NANOERA=$ERA,run2_nanoAOD_102Xv1
 
+FRAGMENT_BASE_URL=http://nuhep.northwestern.edu/~sapta
 #FRAGMENT_BASE_URL=https://rembserj.web.cern.ch/rembserj/genproduction/fragments
 GRIDPACK_BASE_URL=https://rembserj.web.cern.ch/rembserj/genproduction/gridpacks
 
@@ -152,7 +153,6 @@ git cms-addpkg GeneratorInterface/LHEInterface
 curl -s --insecure https://rembserj.web.cern.ch/rembserj/genproduction/patches/$RUN_GENERIC_TARBALL_PATCH --retry 2 --create-dirs -o $RUN_GENERIC_TARBALL_PATCH
 [ -s $RUN_GENERIC_TARBALL_PATCH ] || exit $?;
 patch GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh < $RUN_GENERIC_TARBALL_PATCH
-
 
 curl -s --insecure $FRAGMENT_BASE_URL/$FRAGMENT --retry 2 --create-dirs -o Configuration/GenProduction/python/$FRAGMENT
 [ -s Configuration/GenProduction/python/$FRAGMENT ] || exit $?;
